@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    
+    <link href="@Url.Content("~/LogIn.css")" rel="stylesheet" type="text/css" />
+    <title>LogIn</title>
+    
+</head>
+<body>
+    <div> 
+@using (Html.BeginForm("MyAction", "Home", FormMethod.Post, new { id = "login" }))
+{
+            <h1>Log In</h1>
+
+
+            @*<fieldset id="inputs">*@
+    @*@Html.TextBox("un",null, new { @class = "id" , placeholder = "Username",type = "text" });*@
+    @*@Html.TextBoxFor(m => m.UserName, new { placeholder = "Username"});
+    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+    <br/>
+    @Html.TextBoxFor(m => m.Password, new { type = "password", placeholder = "Password" });
+    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" });
+    <br/>*@
+    @*@Html.TextBox("pw", null,new { type= "password", placeholder = "Password", required = "required"});*@
+                <input name="un" type="text" placeholder="Username" autofocus required>
+                <input name="pw" type="password" placeholder="Password" required />
+            @*</fieldset>*@
+
+            @*<fieldset id="actions">*@
+                <input type="submit" id="submit" value="Log in">
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" });
+
+                @*<a href="">Forgot your password?</a><a href="">Register</a>*@
+            @*</fieldset>*@
+}
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+﻿
+@(Html.Kendo().Grid<MTERoads.Models.tblTransaction>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+        columns.Bound(c => c.Trans_Date);
+        columns.Bound(c => c.Hours);
+        columns.Bound(c => c.Lease_Chg);
+        columns.Command(command => { command.Edit(); }).Width(180);
+      })
+      .Editable(editable => editable.Mode(GridEditMode.InLine))
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Model(model => model.Id(p => p.AutoNumber))
+          .Read(read => read.Action("tblTransactions_Read", "Grid"))
+          .Update(update => update.Action("tblTransactions_Update", "Grid"))
+      )
+)

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MTERoads.Models.tblTransaction>
+
+@(Html.Kendo().Grid(Model)
+      .Name("Grid")
+      .Columns(columns =>
+      {
+          columns.Bound(c => c.tblEmp.Emp_Name).ClientTemplate("#=DropDown.Emps#").Width(180);
+          columns.Bound(c => c.Trans_Date);
+          columns.Bound(c => c.Mach_No).Hidden();
+          columns.Bound(c => c.tblMach).Hidden();
+          columns.Bound(c => c.tblMach.Mach_Desc);
+          columns.Bound(c => c.tblRoad.Road_Name);
+          columns.Bound(c => c.BIA_No).Hidden();
+          columns.Bound(c => c.tblRoad).Hidden();
+          columns.Bound(c => c.tblAct.Activity_Desc);
+          columns.Bound(c => c.tblAct).Hidden();
+          columns.Bound(c => c.Activity_Code).Hidden();
+          columns.Bound(c => c.Hours);
+          columns.Bound(c => c.Lease_Chg);
+          columns.Command(command => { command.Edit(); }).Width(180);
+      })
+      .Editable(editable => editable.Mode(GridEditMode.InLine))
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+        .Server()
+        .Model(model =>
+        {
+            model.Id(p => p.AutoNumber);
+
+        })
+        .Read(read => read.Action("Index", "Transactions"))
+        .Update("tblTransactions_Update", "Transactions")
+      )
+)
+
+

@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Layout.css")" rel="stylesheet" type="text/css" />
+    <link href="~/Roads.css" rel="stylesheet" type="text/css" />
+    <link href="~/Transactions.css" rel="stylesheet" type="text/css" />
+    <link href="~/kendo.common-bootstrap.min.css" rel="stylesheet" />
+    <link href="~/kendo.bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/scripts/kendo.all.min.js"></script>
+    <script src="~/scripts/kendo.aspnetmvc.min.js"></script>
+    <div> 
+        <ul class="menuTemplate4 decor4_1">
+            @Html.ActionLink("Activities", "Activities", "Home")
+            @Html.ActionLink("Employees", "Employees", "Home")
+            @Html.ActionLink("Machines", "Machines", "Home")
+            @Html.ActionLink("Roads", "Index", "Roda")
+            @Html.ActionLink("Transactions", "Index", "Transactions")
+            @Html.ActionLink("Log out", "Logout", "Home")
+           
+        </ul>
+        
+    </div>
+    <br />
+    @RenderBody()
+</body>
+</html>

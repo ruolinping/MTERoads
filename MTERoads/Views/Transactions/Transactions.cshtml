@@ -1,0 +1,133 @@
+﻿@model MTERoads.Models.TransactionsViewModel
+
+@{
+    ViewBag.Title = "Transactions";
+    Layout = "~/Views/_Layout.cshtml";
+}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#txtDate").datepicker({ dateFormat: 'mm/dd/yy' });
+
+        $(".btnEditTran").click(function () {
+            //var categoryId =  $("#ddlCategory").val();
+            //$("#divTransactionsWebGrid").load('@(Url.Action("EditTransaction", "Transactions", null, Request.Url.Scheme))');
+            alert("bla");
+        });
+        $("#btnAddTransaction").click(function () {
+           
+            var date = $("#txtDate").val();
+            var emp = $("#txtEmp").val();
+            var mach = $("#txtMach").val();
+            var road = $("#txtRoad").val();
+            var act = $("#txtAct").val();
+            var hours = $("#txtHours").val();
+            var lease = $("#txtLease").val();
+            $.ajax({
+                type: "Post",
+                url: "/Transactions/AddPost",
+                data: {
+                    'txtDate': date,
+                    'txtEmp': emp,
+                    'txtMach': mach,
+                    'txtRoad': road,
+                    'txtAct': act,
+                    'txtHours': hours,
+                    'txtLease': lease
+                },
+                async: true,
+                success: function () {
+                    $('.form-control').val(0);
+                    $('.txt').val("");
+                    $("#divTransactionsGrid").load(location.href + " #divTransactionsGrid");
+                },
+                error: function (xhr) {
+                    alert('Error: ' + xhr.statusText);
+                }
+            });
+
+        });
+    });
+</script>
+
+<h2>Transactions</h2>
+
+<div id="tranAdd">
+
+        @Html.AntiForgeryToken()
+    @{if (TempData["www"] != null)
+        {
+            <div>successfully added</div>
+        } }
+
+        <div class="form-horizontal">
+          
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+          
+                <input type="text" id="txtDate" name="txtDate" placeholder="MM/DD/YYYY" class="txt" />
+                @*@Html.TextBox("txtDate", null, new { placeholder="MM/DD/YYYY", id = "txtDate"})*@
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.DropDownList("txtEmp", new SelectList(Model.Emps, "Emp_No", "Emp_Name"), "--Select Employee--", htmlAttributes: new { @class = "form-control", id = "txtEmp" })
+                        @Html.ValidationMessageFor(model => model.Transaction.Emp_No, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.DropDownList("txtMach", new SelectList(Model.Machs, "Mach_No", "Mach_Desc"), "--Select Machine--", htmlAttributes: new { @class = "form-control", id = "txtMach" })
+                        @Html.ValidationMessageFor(model => model.Transaction.Mach_No, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.DropDownList("txtRoad", new SelectList(Model.Roads, "BIA_No", "Road_Name"), "--Select Road--", htmlAttributes: new { @class = "form-control", id = "txtRoad" })
+                        @Html.ValidationMessageFor(model => model.Transaction.BIA_No, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.DropDownList("txtAct", new SelectList(Model.Acts, "Activity_Code", "Activity_Desc"), "--Select Activity--", htmlAttributes: new { @class = "form-control", id = "txtAct" })
+                        @Html.ValidationMessageFor(model => model.Transaction.Activity_Code, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.TextBox("txtHours", null, new { placeholder = "Hours", @class = "txt", id = "txtHours" })
+                        @Html.ValidationMessageFor(model => model.Transaction.Hours, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.TextBox("txtLease", null, new { placeholder = "Lease Charge", @class = "txt", id = "txtLease" })
+                        @Html.ValidationMessageFor(model => model.Transaction.Lease_Chg, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input id="btnAddTransaction" type="button" value="Add New Transaction" />
+                    </div>
+                </div>
+         
+        </div>
+        
+</div>
+
+
+<div id="divTransactionsGrid">
+    @{
+        Html.RenderPartial("TransactionsGrid", Model.List);
+    }
+</div>

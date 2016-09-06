@@ -1,0 +1,7 @@
+﻿@model MTERoads.Models.TransactionsViewModel
+
+@(Html.Kendo().DropDownListFor(m => m.Emps)
+        .DataValueField("Emp_no")
+        .DataTextField("Emp_Name")
+        .BindTo((System.Collections.IEnumerable)ViewData["Emps"])
+)

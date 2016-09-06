@@ -1,0 +1,21 @@
+﻿
+@model IEnumerable<MTERoads.Models.tblTransaction>
+
+@(Html.Kendo().Grid(Model)
+      .Name("Grid")
+      .Columns(columns =>
+      {
+        columns.Bound(c => c.Trans_Date);
+        columns.Bound(c => c.Hours);
+        columns.Bound(c => c.Lease_Chg);
+        columns.Command(command => { command.Edit(); }).Width(180);
+      })
+      .Editable(editable => editable.Mode(GridEditMode.InLine))
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+        .Server()
+        .Model(model => model.Id(p => p.AutoNumber))
+        .Read(read => read.Action("Index", "g2"))
+        .Update("tblTransactions_Update", "g2")
+      )
+)

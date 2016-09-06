@@ -1,0 +1,15 @@
+﻿body {
+}
+  .menuTemplate4
+{
+
+    margin: 0 auto; width: auto;float:left;   
+    position:relative;
+    z-index:4;
+    height: 36px;
+    background: #99ccff url(bg.gif);
+    border: 1px solid #036;
+    font-family: Arial, Helvetica, sans-serif;
+    list-style: none;
+    padding: 0;
+}
